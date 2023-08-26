@@ -1,0 +1,15 @@
+{
+    "application":{
+        "generated_url_length":8,
+        "default_expiration":"5m",
+        "max_expiration":"48h",
+        "port":8080,
+        "host":"0.0.0.0"
+    },
+    "redis":{
+        "host":"localhost",
+        "port":6379,
+        "password":"",
+        "db":0
+    }
+}
