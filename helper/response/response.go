@@ -18,8 +18,13 @@ func Success(ctx context.Context, w http.ResponseWriter, data interface{}, statu
 		response.Message += msg.(string)
 	}
 
+	httpCode := http.StatusOK
+	if httpCode != 0 {
+		httpCode = status
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
+	w.WriteHeader(httpCode)
 	json.NewEncoder(w).Encode(response)
 }
 
