@@ -8,3 +8,6 @@ Able to add expiry date to shortened URL.
 Able to sort shortened URL by click counter descending/ascending.
 Design your own RESTful API to fulfill the requirements.
 Free to use any language to solve. Plus point for Golang.
+
+Run the program by using these command:
+```go run cmd/main.go```
