@@ -10,7 +10,7 @@ import (
 func Info(args ...interface{}) {
 	var msg string
 	for _, arg := range args {
-		msg += fmt.Sprintf(" %v", arg)
+		msg += fmt.Sprintf("%v ", arg)
 	}
 	fmt.Printf("%s [INFO] %s\n", time.Now().Format(time.RFC3339), msg)
 }
@@ -50,7 +50,7 @@ func Panic(args ...interface{}) {
 func LogRequest(ctx context.Context, r *http.Request, args ...interface{}) {
 	var msg string
 	for _, arg := range args {
-		msg += fmt.Sprintf(" %v", arg)
+		msg += fmt.Sprintf("%v ", arg)
 	}
 	val := ctx.Value("request_id")
 	if val == nil {

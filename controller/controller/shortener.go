@@ -15,25 +15,19 @@ import (
 	"github.com/google/uuid"
 )
 
-type ShortenerController interface {
-	ShortenURL(url string) (string, error)
-	GetURL(shortURL string) (string, error)
-	HandleShortenURL(shortURL string) (string, error)
-}
-
-type shortenerController struct {
+type ShortenerController struct {
 	config  config.Config
 	service *service.ShortenerService
 }
 
-func NewShortenerController(ctx context.Context, config config.Config, shrtnService *service.ShortenerService) *shortenerController {
-	return &shortenerController{
+func NewShortenerController(ctx context.Context, config config.Config, shrtnService *service.ShortenerService) *ShortenerController {
+	return &ShortenerController{
 		config:  config,
 		service: shrtnService,
 	}
 }
 
-func (c *shortenerController) HandleShortenURL(w http.ResponseWriter, r *http.Request) {
+func (c *ShortenerController) HandleShortenURL(w http.ResponseWriter, r *http.Request) {
 	requestID, _ := uuid.NewUUID()
 	ctx := context.WithValue(r.Context(), "request_id", requestID)
 	logger.LogRequest(ctx, r, "HandleShortenURL")
@@ -55,7 +49,7 @@ func (c *shortenerController) HandleShortenURL(w http.ResponseWriter, r *http.Re
 	http.Redirect(w, r, result.URL, http.StatusMovedPermanently)
 }
 
-func (c *shortenerController) GetURL(w http.ResponseWriter, r *http.Request) {
+func (c *ShortenerController) GetURL(w http.ResponseWriter, r *http.Request) {
 	requestID, _ := uuid.NewUUID()
 	ctx := context.WithValue(r.Context(), "request_id", requestID)
 	logger.LogRequest(ctx, r, "GetURL")
@@ -69,7 +63,7 @@ func (c *shortenerController) GetURL(w http.ResponseWriter, r *http.Request) {
 	response.Success(ctx, w, result, http.StatusOK)
 }
 
-func (c *shortenerController) ShortenURL(w http.ResponseWriter, r *http.Request) {
+func (c *ShortenerController) ShortenURL(w http.ResponseWriter, r *http.Request) {
 	requestID, _ := uuid.NewUUID()
 	ctx := context.WithValue(r.Context(), "request_id", requestID)
 	logger.LogRequest(ctx, r, "ShortenURL")
@@ -89,7 +83,7 @@ func (c *shortenerController) ShortenURL(w http.ResponseWriter, r *http.Request)
 	response.Success(ctx, w, result, http.StatusOK)
 }
 
-func (c *shortenerController) DeleteURL(w http.ResponseWriter, r *http.Request) {
+func (c *ShortenerController) DeleteURL(w http.ResponseWriter, r *http.Request) {
 	requestID, _ := uuid.NewUUID()
 	ctx := context.WithValue(r.Context(), "request_id", requestID)
 	logger.LogRequest(ctx, r, "DeleteURL")
